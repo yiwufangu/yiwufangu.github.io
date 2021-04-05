@@ -1,0 +1,79 @@
+I"�<p>GitHub Pages 基于Jekyll构建，使用GitHub的免费主机，你可以轻而易举地使用自定义域名在GitHub上免费发布网站。</p>
+
+<h2 id="一简介">一、简介</h2>
+
+<h3 id="11-什么是github-pages">1.1 什么是GitHub Pages</h3>
+<p>GitHub Pages 是一个静态站点托管服务。Github Pages旨在直接从 GitHub 仓库中直接托管您的个人、组织或项目页面。了解关于 GitHub Pages 网站不同类型的更多信息，请参阅<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages">用户、组织和项目页面</a>。</p>
+
+<p>你可以使用 Jekyll Theme Chooser 在线创建和发布 GitHub Pages。</p>
+
+<h3 id="12-jekyll">1.2 Jekyll</h3>
+<p>Jekyll是一个简单静态博客网站生成器，可以将纯文本转换为静态博客网站。更多详情，可以<a href="http://jekyllcn.com/">访问</a>。</p>
+
+<ul>
+  <li>简单
+不再需要数据库，不需要开发评论功能，不需要不断的更新版本——只用关心你的博客内容。</li>
+  <li>静态
+Markdown（或 Textile）、Liquid 和 HTML &amp; CSS 构建可发布的静态网站。</li>
+  <li>博客支持
+支持自定义地址、博客分类、页面、文章以及自定义的布局设计。</li>
+</ul>
+
+<p>几行命令，即可快速启动运行站点。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gem <span class="nb">install </span>jekyll bundler
+<span class="nv">$ </span>jekyll new my-awesome-site
+<span class="nv">$ </span><span class="nb">cd </span>my-awesome-site
+
+~/my-awesome-site <span class="nv">$ </span> bundle <span class="nb">install</span>
+~/my-awesome-site <span class="nv">$ </span> bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+<h3 id="13-rubygems">1.3 RubyGems</h3>
+<p>RubyGems是 Ruby 的一个包管理器，它提供一个分发 Ruby 程序和库的标准格式，还提供一个管理程序包安装的工具。RubyGems 旨在方便地管理 gem 安装的工具，以及用于分发 gem 的服务器。这类似于 Ubuntu 下的apt-get, Centos 的 yum，Python 的 pip。RubyGems大约创建于2003年11月，从Ruby 1.9版起成为Ruby标准库的一部分。</p>
+
+<h2 id="二搭建本地调试开发环境">二、搭建本地调试开发环境</h2>
+
+<h3 id="21-安装ruby">2.1 安装Ruby</h3>
+<p>大家可以在<link href="https://rubyinstaller.org/downloads/" />rubyinstaller.org&lt;/link&gt; 自行下载，本文使用的版本是Ruby+Devkit 3.0.0-1 (x64)。</p>
+
+<h3 id="22-安装rubygems">2.2 安装RubyGems</h3>
+<p>点击下载<link href="https://rubygems.org/pages/download" />RubyGems&lt;/link&gt; RubyGems, 下载完成后解压至你想放的位置，进入解压目录，执行 ruby setup.rb。本文安装版本是3.2.15。</p>
+
+<h3 id="23-安装msys2">2.3 安装MSYS2</h3>
+<p>MSYS2 （Minimal SYStem 2） 是一个MSYS的独立改写版本，主要用于 shell 命令行开发环境。同时它也是一个在Cygwin （POSIX 兼容性层） 和 MinGW-w64（从”MinGW-生成”）基础上产生的，追求更好的互操作性的 Windows 软件。本文下载最新版本http://repo.msys2.org/distrib/x86_64/msys2-x86_64-20210228.exe。</p>
+
+<h3 id="24-安装bundler-jekyll">2.4 安装Bundler Jekyll</h3>
+<p>bundler是一个管理其他Ruby gems的gem。它确保你的gems和gem版本兼容，并且确保包含每个gem需要的必须依赖。直接安装Bundler Jekyll,会提示Jekyll安装失败。</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>bundler
+gem <span class="nb">install </span>jekyll
+</code></pre></div></div>
+<p>继续执行 <code class="language-plaintext highlighter-rouge">ridk install</code></p>
+
+<p><img src="/assets/20210405/ridk-install.png" alt="img" height="80%" /></p>
+
+<p>错误：无法锁定数据库：File exists。如果你确认软件包管理器没有在运行，可以删除 /var/lib/pacman/db.lck。</p>
+
+<p>① 使用msys2 mingw64打开命令窗口执行：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> /var/lib/pacman/db.lck
+</code></pre></div></div>
+<p>② 运行 pacman -Syu</p>
+
+<p>:: Synchronizing package databases…
+error: failed retrieving file ‘mingw32.db’ from repo.msys2.org : Resolving timed out after 10000 milliseconds</p>
+
+<h3 id="25-msys2更换国内源">2.5 MSYS2更换国内源</h3>
+<p>默认的 MSYS2 源升级软件或是安装新软件的特别的慢，国内有针对于MSYS2的镜像库。这里我们使用中科大的库。
+msys64\etc\pacman.d 目录下有三个文件：</p>
+<ul>
+  <li>mirrorlist.msys
+将Server = http://mirrors.ustc.edu.cn/msys2/msys/$arch/ 粘贴或者移动到最Primary最上面。</li>
+  <li>mirrorlist.mingw64
+同样于，Server = http://mirrors.ustc.edu.cn/msys2/mingw/x86_64/</li>
+  <li>mirrorlist.mingw32
+同样于，Server = http://mirrors.ustc.edu.cn/msys2/mingw/i686/</li>
+</ul>
+
+<p>国内镜像更新完毕后，执行如下命令，重新安装 ridk install。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Syu
+</code></pre></div></div>
+
+:ET
