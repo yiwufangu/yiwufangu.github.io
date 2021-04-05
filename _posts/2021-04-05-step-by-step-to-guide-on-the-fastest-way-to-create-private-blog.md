@@ -1,4 +1,11 @@
 
+---
+layout: post
+title:  "手把手教你如何快速创建个人博客"
+date:   2021-04-05 -0600
+categories: jekyll github-pages
+tags: jekyll
+---
 # 手把手教你如何快速创建个人博客
 
 GitHub Pages 基于Jekyll构建，使用GitHub的免费主机，你可以轻而易举地使用自定义域名在GitHub上免费发布网站。
